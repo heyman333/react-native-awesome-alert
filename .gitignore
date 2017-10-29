@@ -43,8 +43,6 @@ buck-out/
 
 # VSCODE
 jsconfig.json
-.vscode
-
 
 # fastlane
 #
