@@ -9,31 +9,66 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
+import AwesomeAlert from './src/AwesomeAlert'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+// const instructions = Platform.select({
+//   ios: 'Press Cmd+R to reload,\n' +
+//     'Cmd+D or shake for dev menu',
+//   android: 'Double tap R on your keyboard to reload,\n' +
+//     'Shake or press menu button for dev menu',
+// });
 
-export default class App extends Component<{}> {
+
+const SampleView = <Text>Hello!</Text>
+
+export default class App extends Component {
+
+  constructor(props){
+    super(props)
+
+  }
+
+  onPressSimpleAlert() {
+    
+    this.awesomAlert.alert("Hello!!",SampleView,
+    [
+      {text: "OK", onPress: ()=>console.log("OK touch")},
+      {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
+
+    ]
+  )
+
+  }
+
+  onPresshNeverAskAlert() {
+    alert("onPresshNeverAskAlert")
+    
+  }
+
+  onPresshNot24HAlert() {
+    alert("onPresshNot24HAlert")
+    
+  }
+
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+      <View style = {styles.container}>
+        <AwesomeAlert ref={ref => this.awesomAlert = ref}/>
+        <TouchableOpacity style = {styles.touchButton} onPress={this.onPressSimpleAlert.bind(this)}> 
+          <Text style = {styles.toucaButtonTxt}>simple Alert</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.touchButton} onPress={this.onPresshNeverAskAlert}>  
+          <Text style = {styles.toucaButtonTxt}>neverAsk Alert</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.touchButton} onPress={this.onPresshNot24HAlert}> 
+          <Text style = {styles.toucaButtonTxt}>not Ask for 24H Alert</Text>
+        </TouchableOpacity>
       </View>
-    );
+    )  
   }
 }
 
@@ -44,14 +79,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  touchButton: {
+    padding:10
   },
-  instructions: {
+  toucaButtonTxt:{
+    fontWeight: '500',
     textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    fontSize: 20
+    
+  }
 });
