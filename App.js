@@ -32,7 +32,6 @@ export default class App extends Component {
   }
 
   onPressSimpleAlert() {
-    
     this.awesomAlert.alert("Hello!!",SampleView,
     [
       {text: "OK", onPress: ()=>console.log("OK touch")},
@@ -44,7 +43,12 @@ export default class App extends Component {
   }
 
   onPresshNeverAskAlert() {
-    alert("onPresshNeverAskAlert")
+    this.awesomAlert.alertWithCheck("Hello2!!",SampleView,
+    [
+      {text: "OK", onPress: ()=>console.log("OK touch"), id: "helloAlert"},
+      {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
+    ]
+  )
     
   }
 
@@ -57,14 +61,19 @@ export default class App extends Component {
   render() {
     return (
       <View style = {styles.container}>
-        <AwesomeAlert ref={ref => this.awesomAlert = ref}/>
+        <AwesomeAlert ref={ref => this.awesomAlert = ref}
+          styles = {{checkBoxText: {fontSize: 12, color: 'blue', fontWeight: '600'}, buttonContainer:{flexDirection: 'row', justifyContent: 'space-around'}}
+                    
+        }
+          rightText = {"never Ask Again2"}
+        />
         <TouchableOpacity style = {styles.touchButton} onPress={this.onPressSimpleAlert.bind(this)}> 
           <Text style = {styles.toucaButtonTxt}>simple Alert</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.touchButton} onPress={this.onPresshNeverAskAlert}>  
+        <TouchableOpacity style = {styles.touchButton} onPress={this.onPresshNeverAskAlert.bind(this)}>  
           <Text style = {styles.toucaButtonTxt}>neverAsk Alert</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.touchButton} onPress={this.onPresshNot24HAlert}> 
+        <TouchableOpacity style = {styles.touchButton} onPress={this.onPresshNot24HAlert.bind(this)}> 
           <Text style = {styles.toucaButtonTxt}>not Ask for 24H Alert</Text>
         </TouchableOpacity>
       </View>

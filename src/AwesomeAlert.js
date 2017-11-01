@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import CheckBox from 'react-native-check-box'
 import {
     StyleSheet,
     Text,
@@ -12,10 +13,11 @@ import {
     Animated,
     Dimensions
 } from 'react-native';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import AlertStorageManager from './AlertStorageManager'
+import awesomeAlertStyles from './AwesomeAlert.style'
 
-const {width, height} = Dimensions.get('window')
+const styles = {}
 
 export default class AwesomeAlert extends Component {
 
@@ -45,8 +47,18 @@ export default class AwesomeAlert extends Component {
 
         new AlertStorageManager().getObjDatasArr().then(objDatas => 
                                     this.setState({alertsArr: objDatas}))
-                                    .catch((err) => console.log("CheckAlert :: getObjDatsaArr err", err.message))
+                                    .catch((err) => console.warn("CheckAlert :: getObjDatsaArr err", err.message))
 
+        if (this.props.styles) {
+            Object.keys(awesomeAlertStyles).forEach(key => {
+                styles[key] = StyleSheet.flatten([
+                awesomeAlertStyles[key],
+                this.props.styles[key]
+            ])
+        })
+        } else {
+            styles = awesomeAlertStyles
+        }                                    
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -127,6 +139,7 @@ export default class AwesomeAlert extends Component {
             this.title = title
             this.messagesView = messagesView
             this.buttons = buttons
+            this.checkbox = true
 
             if(this.state.alertsArr != null){
                 for (let alert of this.state.alertsArr) {
@@ -144,7 +157,7 @@ export default class AwesomeAlert extends Component {
                  {
                      this.openModal(alertData)
                      new AlertStorageManager().getObjDatasArr().then(objDatas => this.setState({alertsArr: objDatas}))
-                                         .catch((err) => console.log("CheckAlert :: getObjDatsaArr2 err", err.message))
+                                         .catch((err) => console.warn("CheckAlert :: getObjDatsaArr2 err", err.message))
                  }
                  )
              } else {
@@ -160,7 +173,7 @@ export default class AwesomeAlert extends Component {
         if(!visible && !this.state.askAlways && (buttonIdx === this.checkSaveBtnIdx)) {
             new AlertStorageManager().showFalse(this.modalID).then(()=>
             new AlertStorageManager().getObjDatasArr().then(objDatas => this.setState({alertsArr: objDatas}))) 
-                                 .catch((err) => console.log("CheckAlert :: getObjDatsaArr3 err", err.message))
+                                 .catch((err) => console.warn("CheckAlert :: getObjDatsaArr3 err", err.message))
         }
 
         this.setState({modalVisible: visible, askAlways: true})
@@ -183,18 +196,6 @@ export default class AwesomeAlert extends Component {
             inputRange: [0, 1],
             outputRange: [0, 1]
         })
-        const dynamicContainerStyle = {}
-        const dynamicButtonStyle = {}
-        if (this.buttons.length > 2) {
-            dynamicContainerStyle.flexDirection = 'column'
-            dynamicButtonStyle.flex = 0
-            dynamicButtonStyle.borderBottomWidth = StyleSheet.hairlineWidth 
-
-        } else {
-            dynamicContainerStyle.flexDirection = 'row'
-            dynamicButtonStyle.flex = 1 
-            dynamicButtonStyle.borderRightWidth = StyleSheet.hairlineWidth 
-        }
 
         return(
             <View>
@@ -204,18 +205,18 @@ export default class AwesomeAlert extends Component {
                     onShow={()=>this.scaleDown()}
                     onRequestClose={()=>this.setModalVisible(false)}>
                     <View style = {styles.modalContainer}>
-                        <Animated.View style = {[styles.contentsView, {transform: [{scale: viewScale}], opacity: opacityValue}]}>
+                        <Animated.View style = {[styles.modalView, {transform: [{scale: viewScale}], opacity: opacityValue}]}>
                             <Text style = {styles.titleTxt}>{this.title}</Text>
                             {this.messagesView}
-                            
-                            <View style = {[dynamicContainerStyle, styles.buttonContainer]}>
+                            {this.checkbox && this.renderCheckBox()}
+                            <View style = {styles.buttonContainer}>
                                 {
                                     this.buttons.map((button, index) => {
                                         return (
                                             <TouchableOpacity key = {index} onPress = {()=> {
                                                 button.onPress()
                                                 this.setModalVisible(false, index)
-                                            }} style = {[dynamicButtonStyle, styles.button]}>
+                                            }} style = {styles.button}>
                                                 <Text style = {this.buttonStyles[index]}>{button.text}</Text>
                                             </TouchableOpacity>
                                         )
@@ -229,13 +230,19 @@ export default class AwesomeAlert extends Component {
         )
     }
 
-    // renderCheckBox() {
-    //     return(
-    //         <Checkbox style={styles.checkbox} leftIcon text={I18n.t("CheckAlert.notAskAgain")}
-    //             textStyle={styles.checkboxText} isSelected={!this.state.askAlways}
-    //             onPress={() => this.setState({askAlways: !this.state.askAlways})}/>
-    //     )
-    // }
+    renderCheckBox() {
+        return(
+            <CheckBox
+                style={styles.checkBox}
+                onClick={()=>this.setState({askAlways: !this.state.askAlways})}
+                isChecked={!this.state.askAlways}
+                rightTextStyle={styles.checkBoxText}
+                rightText={this.props.rightText}
+                leftTextStyle={styles.checkBoxText}
+                leftText={this.props.leftText}
+            />
+            )
+    }
 
     //Animation Function
     scaleDown() {
@@ -249,121 +256,3 @@ export default class AwesomeAlert extends Component {
        ).start()
     }
 }
-
-const iosStyles = StyleSheet.create({
-    modalContainer : { 
-        flex: 1,
-        backgroundColor: 'rgba(49,49,49, 0.5)',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    contentsView: { 
-        backgroundColor: '#EFEFF4',
-        borderRadius: 10,
-        width: 270,
-        marginBottom: 60
-
-    },
-    checkbox: {
-        marginBottom: 10,
-        alignSelf: 'center'
-    },
-    checkboxText: {
-        marginLeft: 4,
-        alignSelf: 'center',
-        fontSize: 15,
-        justifyContent: 'center',
-    },
-    textContainer: {
-        alignItems: 'center',
-        padding: 13,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: 'gray'
-    },
-    titleTxt: {
-        fontSize: 17,
-        fontWeight: '500',
-        padding: 10, 
-        alignSelf: 'center'
-    },
-    messagesTxt: {
-        fontSize: 14,
-        marginBottom: 100,
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    buttonContainer: {
-        justifyContent: 'center',
-        borderColor: 'gray',
-        borderTopWidth: StyleSheet.hairlineWidth
-    },
-    buttonTxt: {
-        color: 'rgb(0,122,255)',
-        fontSize: 17
-    },
-    button: {
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        padding: 15,
-        borderColor: 'gray'
-    }
-})
-
-const androidStyles = StyleSheet.create({
-    modalContainer : { 
-        flex: 1,
-        backgroundColor: 'rgba(49,49,49, 0.8)',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    contentsView: { 
-        backgroundColor: 'white',
-        width: height * 0.8,
-        marginBottom: 60,
-        elevation: 10,
-        padding: 18
-
-    },
-    titleTxt: {
-        fontSize: 17,
-        fontWeight: '500',
-        marginBottom: 10,
-        color: 'rgba(49,49,49,0.9)'
-    },
-    messagesTxt: {
-        fontSize: 14,
-        marginBottom: 100,
-        marginBottom: 10,
-        color: 'rgba(49,49,49,0.9)'
-    },
-    checkbox: {
-    },
-    checkboxText: {
-        marginLeft: 4,
-        alignSelf: 'center',
-        fontSize: 15,
-        justifyContent: 'center',
-        color: 'rgba(49,49,49,0.9)'
-    },
-    buttonContainer: { 
-        flexDirection: 'row',
-        justifyContent: 'flex-end'
-    },
-    buttonTxt: {
-        color: 'rgb(110, 183, 161)',
-        fontWeight: '500',
-        fontSize: 13
-    },
-    button: {
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        padding: 10,
-        borderBottomWidth: 0,
-        borderRightWidth: 0,
-        flex: 0
-    }
-})
-
-const styles = function() {
-    return Platform.OS === 'ios' ? iosStyles : androidStyles
-}()
