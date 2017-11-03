@@ -30,6 +30,7 @@ export default class AwesomeAlert extends Component {
     constructor(props){
         super(props)
         this.state = { 
+            ...this.props,
             modalVisible : false,
             askAlways: true,
             alertsArr: []
@@ -41,12 +42,13 @@ export default class AwesomeAlert extends Component {
         this.title = " "
         this.messagesView = null
         this.buttons = []
-        this.buttonStyles = []
         
         this.scaleValue = new Animated.Value(0)
 
-        new AlertStorageManager().getObjDatasArr().then(objDatas => 
-                                    this.setState({alertsArr: objDatas}))
+        new AlertStorageManager().getObjDatasArr().then(objDatas => {
+                                    console.log("outPutData:",objDatas)
+                                    this.setState({alertsArr: objDatas})
+                                    })
                                     .catch((err) => console.warn("CheckAlert :: getObjDatsaArr err", err.message))
 
         if (this.props.styles) {
@@ -65,6 +67,7 @@ export default class AwesomeAlert extends Component {
         const beforeAskAlways = this.state.askAlways
         const beforeModalVisible = this.state.modalVisible
         const { askAlways, modalVisible } = nextState
+        console.log("this_state: ", nextState)
 
         if ((beforeAskAlways != askAlways) || (beforeModalVisible != modalVisible) ) {
             return true
@@ -86,26 +89,18 @@ export default class AwesomeAlert extends Component {
         }   
     }
 
-    parseButton(buttons){
+    parseButton(buttons, isNeverAsk){
         // Search button id
         for (let i in buttons) {
             if(buttons[i].hasOwnProperty("id")) {
-                this.modalID = buttons[i].id
+                this.modalID = isNeverAsk ? "neverAskAlert::" + buttons[i].id : "notAskDayAlert::" + buttons[i].id
                 this.checkSaveBtnIdx = parseInt(i)
                 break
             }
         }
-        // apply button style 
-        for (let button of buttons) {    
-            const buttonStyle = StyleSheet.flatten([
-                styles.buttonTxt,
-                button.style
-            ])
-            this.buttonStyles.push(buttonStyle)
-        }        
-    }
+    }        
 
-    alert(title, messagesView, buttons){
+    alert(title, messagesView, buttons) {
 
         let typeError = this.typeChecker(title, messagesView, buttons)
         if (typeError) {
@@ -122,8 +117,7 @@ export default class AwesomeAlert extends Component {
 
     }
 
-    alertWithCheck(title, messagesView, buttons) {
-        console.log("alertArr:", this.state.alertsArr)
+    checkAlert(title, messagesView, buttons, isNeverAsk) {
 
         let typeError = this.typeChecker(title, messagesView, buttons)
         if (typeError) {
@@ -133,7 +127,7 @@ export default class AwesomeAlert extends Component {
         let newID = true
         let alertData = null
 
-        this.parseButton(buttons)
+        this.parseButton(buttons, isNeverAsk)
 
         if(this.modalID != null) {
             this.title = title
@@ -152,14 +146,13 @@ export default class AwesomeAlert extends Component {
              }
      
              if (newID) {
-                 alertData = {id: this.modalID, show: true}
-                 new AlertStorageManager().saveAlertId(this.modalID).then(()=>
-                 {
-                     this.openModal(alertData)
-                     new AlertStorageManager().getObjDatasArr().then(objDatas => this.setState({alertsArr: objDatas}))
-                                         .catch((err) => console.warn("CheckAlert :: getObjDatsaArr2 err", err.message))
-                 }
-                 )
+                alertData = isNeverAsk ? {id: this.modalID, show: true} : {id: this.modalID, show: true, saveTime: new Date()}
+                new AlertStorageManager().saveAlert(alertData).then(()=>
+                {
+                    this.openModal(alertData)
+                    new AlertStorageManager().getObjDatasArr().then(objDatas => this.setState({alertsArr: objDatas}))
+                                        .catch((err) => console.warn("CheckAlert :: getObjDatsaArr2 err", err.message))
+                })
              } else {
                  console.log("this is not first alert data. Don't save data")
                  this.openModal(alertData)
@@ -167,6 +160,17 @@ export default class AwesomeAlert extends Component {
         } else {
             console.warn("you missed Alert button's ID")
         }
+    }
+
+    neverAskAlert(title, messagesView, buttons) {
+        this.setState({notAskDayText: null, neverAskText: this.props.neverAskText})
+        console.log("this.props", this.props.notAskDayText)
+        this.checkAlert(title,messagesView,buttons,true)
+    }
+
+    notAskDayAlert(title, messagesView, buttons) {
+        this.setState({neverAskText: null, notAskDayText: this.props.notAskDayText})
+        this.checkAlert(title,messagesView,buttons,false)
     }
 
     setModalVisible(visible, buttonIdx = null) {
@@ -188,24 +192,26 @@ export default class AwesomeAlert extends Component {
     }
 
     render(){
-        const viewScale = this.scaleValue.interpolate({
-            inputRange: [0, 1],
-            outputRange: [1.1, 1]
-        })
-        const opacityValue = this.scaleValue.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 1]
-        })
+        const buttonTextStyle = []
 
+        // apply button style 
+        for (let button of this.buttons) {    
+            const textStyle = StyleSheet.flatten([
+                styles.buttonTxt,
+                button.style
+            ])
+            buttonTextStyle.push(textStyle)
+        }
+        
         return(
             <View>
                 <Modal
-                    transparent
+                    transparent={this.props.transparent}
+                    animationType={this.props.animationType}
                     visible={this.state.modalVisible}
-                    onShow={()=>this.scaleDown()}
                     onRequestClose={()=>this.setModalVisible(false)}>
                     <View style = {styles.modalContainer}>
-                        <Animated.View style = {[styles.modalView, {transform: [{scale: viewScale}], opacity: opacityValue}]}>
+                        <Animated.View style = {styles.modalView}>
                             <Text style = {styles.titleTxt}>{this.title}</Text>
                             {this.messagesView}
                             {this.checkbox && this.renderCheckBox()}
@@ -217,7 +223,7 @@ export default class AwesomeAlert extends Component {
                                                 button.onPress()
                                                 this.setModalVisible(false, index)
                                             }} style = {styles.button}>
-                                                <Text style = {this.buttonStyles[index]}>{button.text}</Text>
+                                                <Text style = {buttonTextStyle[index]}>{button.text}</Text>
                                             </TouchableOpacity>
                                         )
                                     })
@@ -237,22 +243,14 @@ export default class AwesomeAlert extends Component {
                 onClick={()=>this.setState({askAlways: !this.state.askAlways})}
                 isChecked={!this.state.askAlways}
                 rightTextStyle={styles.checkBoxText}
-                rightText={this.props.rightText}
+                rightText={ this.state.neverAskText || this.state.notAskDayText }
                 leftTextStyle={styles.checkBoxText}
-                leftText={this.props.leftText}
+                leftText={this.state.leftText}
+                checkedImage={this.state.checkedImage}
+                unCheckedImage={this.state.unCheckedImage}
+                checkBoxColor={this.state.checkBoxColor}
             />
             )
     }
 
-    //Animation Function
-    scaleDown() {
-        Animated.timing(
-           this.scaleValue,
-           {
-             toValue: 1,
-             duration: 200,
-             useNativeDriver: true
-           }
-       ).start()
-    }
 }

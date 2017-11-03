@@ -19,7 +19,7 @@ export default class AlertStorageManager {
         }
     }
 
-    async saveAlertId(alertID){
+    async saveAlert(alertData){
 
         const localDataStr = await this.getItem(KEY_ALERTS)
         console.log("localDataString: ", localDataStr)
@@ -27,12 +27,12 @@ export default class AlertStorageManager {
         if (localDataStr == null){
             console.log("this alert is totally new one")
             const alertStrArr = []
-            const newAlertObj = {id: alertID, show: true}
+            const newAlertObj = alertData
             alertStrArr.push(JSON.stringify(newAlertObj))
             await this.setItem(KEY_ALERTS, alertStrArr.join())
         } else {
             console.log("this alert is new one and local DB was not empty")
-            const newAlertObj = {id: alertID, show: true}
+            const newAlertObj = alertData
             const newAlertData = localDataStr + " " + JSON.stringify(newAlertObj)
             await this.setItem(KEY_ALERTS, newAlertData)
         }
@@ -40,6 +40,7 @@ export default class AlertStorageManager {
 
     async getObjDatasArr() {
         const localDataStr = await this.getItem(KEY_ALERTS)
+        console.log("localDataStr:", localDataStr)
 
         if (localDataStr) {
             const objDatasArr = localDataStr.split(' ').map(obj => JSON.parse(obj))

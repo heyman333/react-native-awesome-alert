@@ -11,8 +11,7 @@ export default {
     modalView: { 
         backgroundColor: '#EFEFF4',
         borderRadius: 10,
-        width: 270,
-        marginBottom: 60
+        width: 270
     },
     checkBox: {
         marginBottom: 10

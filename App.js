@@ -10,16 +10,10 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import AwesomeAlert from './src/AwesomeAlert'
-
-// const instructions = Platform.select({
-//   ios: 'Press Cmd+R to reload,\n' +
-//     'Cmd+D or shake for dev menu',
-//   android: 'Double tap R on your keyboard to reload,\n' +
-//     'Shake or press menu button for dev menu',
-// });
 
 
 const SampleView = <Text>Hello!</Text>
@@ -43,7 +37,7 @@ export default class App extends Component {
   }
 
   onPresshNeverAskAlert() {
-    this.awesomAlert.alertWithCheck("Hello2!!",SampleView,
+    this.awesomAlert.neverAskAlert("Hello1!!",SampleView,
     [
       {text: "OK", onPress: ()=>console.log("OK touch"), id: "helloAlert"},
       {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
@@ -53,19 +47,33 @@ export default class App extends Component {
   }
 
   onPresshNot24HAlert() {
-    alert("onPresshNot24HAlert")
+    this.awesomAlert.notAskDayAlert("Hello2!!",SampleView,
+    [
+      {text: "OK", onPress: ()=>console.log("OK touch"), id: "helloAlert"},
+      {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
+    ]
+  )
     
   }
 
 
   render() {
+
+    const checkedImg = <Image source = {require("./image/Icon_Check_on.png")} style = {{width: 15, height: 15}}/>
+    const unCheckedImg = <Image source = {require("./image/Icon_Check_dim.png")} style = {{width: 15, height: 15}}/>
+
+
     return (
       <View style = {styles.container}>
         <AwesomeAlert ref={ref => this.awesomAlert = ref}
-          styles = {{checkBoxText: {fontSize: 12, color: 'blue', fontWeight: '600'}, buttonContainer:{flexDirection: 'row', justifyContent: 'space-around'}}
-                    
-        }
-          rightText = {"never Ask Again2"}
+          styles = {{checkBoxText: {fontSize: 12, color: 'blue', fontWeight: '600'}, buttonContainer:{flexDirection: 'row', justifyContent: 'space-around'}}}
+          transparent = {true}
+          animationType = {'fade'}
+          neverAskText= {"다시 묻지 않기"}
+          notAskDayText= {"하루동안 보지 않기"}
+          checkedImage={checkedImg}
+          unCheckedImage={unCheckedImg}
+          checkBoxColor= 'red'
         />
         <TouchableOpacity style = {styles.touchButton} onPress={this.onPressSimpleAlert.bind(this)}> 
           <Text style = {styles.toucaButtonTxt}>simple Alert</Text>
