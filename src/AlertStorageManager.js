@@ -20,7 +20,6 @@ export default class AlertStorageManager {
     }
 
     async saveAlert(alertData){
-
         const localDataStr = await this.getItem(KEY_ALERTS)
         console.log("localDataString: ", localDataStr)
 
@@ -56,7 +55,22 @@ export default class AlertStorageManager {
 
         for (let obj of objDatasArr) {
             if (obj.id == alertID) {
-                const newObj = {id: obj.id, show: false}
+                const newObj = Object.assign({}, obj,{show: false, savedTime: Date.now()})
+                const newData = localDataStr.replace(JSON.stringify(obj), JSON.stringify(newObj))
+                console.log("new Data: ", newData)
+                await this.setItem(KEY_ALERTS, newData)
+                break
+            }
+        }
+    }
+
+    async showTrue(alertID){
+        const localDataStr = await this.getItem(KEY_ALERTS)
+        const objDatasArr = localDataStr.split(' ').map(obj => JSON.parse(obj))
+
+        for (let obj of objDatasArr) {
+            if (obj.id == alertID) {
+                const newObj =Object.assign({}, obj,{show: true})
                 const newData = localDataStr.replace(JSON.stringify(obj), JSON.stringify(newObj))
                 console.log("new Data: ", newData)
                 await this.setItem(KEY_ALERTS, newData)

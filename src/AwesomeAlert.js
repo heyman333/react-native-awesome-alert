@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types'
 import AlertStorageManager from './AlertStorageManager'
+import TimeManager from './TimeMaager'
 import awesomeAlertStyles from './AwesomeAlert.style'
 
 const styles = {}
@@ -30,7 +31,8 @@ export default class AwesomeAlert extends Component {
     constructor(props){
         super(props)
         this.state = { 
-            ...this.props,
+            neverAskText: this.props.neverAskText,
+            notAskDayText: this.props.notAskDayText,
             modalVisible : false,
             askAlways: true,
             alertsArr: []
@@ -43,8 +45,6 @@ export default class AwesomeAlert extends Component {
         this.messagesView = null
         this.buttons = []
         
-        this.scaleValue = new Animated.Value(0)
-
         new AlertStorageManager().getObjDatasArr().then(objDatas => {
                                     console.log("outPutData:",objDatas)
                                     this.setState({alertsArr: objDatas})
@@ -67,9 +67,8 @@ export default class AwesomeAlert extends Component {
         const beforeAskAlways = this.state.askAlways
         const beforeModalVisible = this.state.modalVisible
         const { askAlways, modalVisible } = nextState
-        console.log("this_state: ", nextState)
 
-        if ((beforeAskAlways != askAlways) || (beforeModalVisible != modalVisible) ) {
+        if ((beforeAskAlways != askAlways) || (beforeModalVisible != modalVisible)) {
             return true
         } else {
             return false
@@ -81,8 +80,7 @@ export default class AwesomeAlert extends Component {
     componentDidMount() {}
 
     typeChecker(title, messagesView, buttons) {
-        if (typeof title !== "string" || !(React.isValidElement(messagesView)) ||
-            !(Array.isArray(buttons))) {
+        if (typeof title !== "string" || !(React.isValidElement(messagesView)) || !(Array.isArray(buttons))) {
             return true
         } else {
             return false
@@ -102,12 +100,11 @@ export default class AwesomeAlert extends Component {
 
     alert(title, messagesView, buttons) {
 
-        let typeError = this.typeChecker(title, messagesView, buttons)
+        const typeError = this.typeChecker(title, messagesView, buttons)
         if (typeError) {
             console.warn("TypeErr, check the alert param"); return
         } 
 
-        this.parseButton(buttons)
         this.title = title
         this.messagesView = messagesView
         this.buttons = buttons
@@ -119,7 +116,7 @@ export default class AwesomeAlert extends Component {
 
     checkAlert(title, messagesView, buttons, isNeverAsk) {
 
-        let typeError = this.typeChecker(title, messagesView, buttons)
+        const typeError = this.typeChecker(title, messagesView, buttons)
         if (typeError) {
             console.warn("TypeErr, check the alert param"); return
         } 
@@ -146,12 +143,12 @@ export default class AwesomeAlert extends Component {
              }
      
              if (newID) {
-                alertData = isNeverAsk ? {id: this.modalID, show: true} : {id: this.modalID, show: true, saveTime: new Date()}
+                alertData = {id: this.modalID, show: true, savedTime: Date.now()}
                 new AlertStorageManager().saveAlert(alertData).then(()=>
                 {
                     this.openModal(alertData)
                     new AlertStorageManager().getObjDatasArr().then(objDatas => this.setState({alertsArr: objDatas}))
-                                        .catch((err) => console.warn("CheckAlert :: getObjDatsaArr2 err", err.message))
+                                             .catch((err) => console.warn("CheckAlert :: getObjDatsaArr2 err", err.message))
                 })
              } else {
                  console.log("this is not first alert data. Don't save data")
@@ -164,7 +161,6 @@ export default class AwesomeAlert extends Component {
 
     neverAskAlert(title, messagesView, buttons) {
         this.setState({notAskDayText: null, neverAskText: this.props.neverAskText})
-        console.log("this.props", this.props.notAskDayText)
         this.checkAlert(title,messagesView,buttons,true)
     }
 
@@ -175,9 +171,11 @@ export default class AwesomeAlert extends Component {
 
     setModalVisible(visible, buttonIdx = null) {
         if(!visible && !this.state.askAlways && (buttonIdx === this.checkSaveBtnIdx)) {
-            new AlertStorageManager().showFalse(this.modalID).then(()=>
-            new AlertStorageManager().getObjDatasArr().then(objDatas => this.setState({alertsArr: objDatas}))) 
-                                 .catch((err) => console.warn("CheckAlert :: getObjDatsaArr3 err", err.message))
+            const alertStorageManager = new AlertStorageManager()
+
+            alertStorageManager.showFalse(this.modalID).then(()=>
+            alertStorageManager.getObjDatasArr().then(objDatas => this.setState({alertsArr: objDatas}))) 
+                                                .catch((err) => console.warn("CheckAlert :: getObjDatsaArr3 err", err.message))
         }
 
         this.setState({modalVisible: visible, askAlways: true})
@@ -188,6 +186,17 @@ export default class AwesomeAlert extends Component {
             this.setModalVisible(true)
             return
         }
+        if (alertData.id.includes("notAskDayAlert::")) {
+            const overDay = TimeManager.dayTimeCheck(alertData.savedTime, Date.now())
+            if (overDay && !alertData.show) {
+                const alertStorageManager = new AlertStorageManager()
+                alertStorageManager.showTrue(this.modalID).then(()=>
+                alertStorageManager.getObjDatasArr().then(objDatas => this.setState({alertsArr: objDatas}))) 
+                                                    .catch((err) => console.warn("CheckAlert :: getObjDatsaArr4 err", err.message))
+                this.setModalVisible(true)
+            }
+        }
+        
         alertData.show ? this.setModalVisible(true) : this.buttons[this.checkSaveBtnIdx].onPress()
     }
 
@@ -213,16 +222,16 @@ export default class AwesomeAlert extends Component {
                     <View style = {styles.modalContainer}>
                         <Animated.View style = {styles.modalView}>
                             <Text style = {styles.titleTxt}>{this.title}</Text>
-                            {this.messagesView}
-                            {this.checkbox && this.renderCheckBox()}
+                                {this.messagesView}
+                                {this.checkbox && this.renderCheckBox()}
                             <View style = {styles.buttonContainer}>
                                 {
                                     this.buttons.map((button, index) => {
                                         return (
                                             <TouchableOpacity key = {index} onPress = {()=> {
                                                 button.onPress()
-                                                this.setModalVisible(false, index)
-                                            }} style = {styles.button}>
+                                                this.setModalVisible(false, index)}} 
+                                                style = {styles.button}>
                                                 <Text style = {buttonTextStyle[index]}>{button.text}</Text>
                                             </TouchableOpacity>
                                         )
@@ -245,12 +254,11 @@ export default class AwesomeAlert extends Component {
                 rightTextStyle={styles.checkBoxText}
                 rightText={ this.state.neverAskText || this.state.notAskDayText }
                 leftTextStyle={styles.checkBoxText}
-                leftText={this.state.leftText}
-                checkedImage={this.state.checkedImage}
-                unCheckedImage={this.state.unCheckedImage}
-                checkBoxColor={this.state.checkBoxColor}
+                leftText={this.props.leftText}
+                checkedImage={this.props.checkedImage}
+                unCheckedImage={this.props.unCheckedImage}
+                checkBoxColor={this.props.checkBoxColor}
             />
             )
     }
-
 }

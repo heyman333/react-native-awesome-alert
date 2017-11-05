@@ -49,7 +49,7 @@ export default class App extends Component {
   onPresshNot24HAlert() {
     this.awesomAlert.notAskDayAlert("Hello2!!",SampleView,
     [
-      {text: "OK", onPress: ()=>console.log("OK touch"), id: "helloAlert"},
+      {text: "OK", onPress: ()=>console.log("OK touch"), id: "helloAlert12"},
       {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
     ]
   )
