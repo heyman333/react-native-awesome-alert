@@ -15,18 +15,31 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types'
 import AlertStorageManager from './AlertStorageManager'
-import TimeManager from './TimeMaager'
+import TimeManager from './TimeManager'
 import awesomeAlertStyles from './AwesomeAlert.style'
 
 const styles = {}
 
 export default class AwesomeAlert extends Component {
 
-    // static propTypes = {
-    //   }
+    static propTypes = {
+        styles: PropTypes.object,
+        neverAskText: PropTypes.string,
+        notAskDayText: PropTypes.string,
+        transparent: PropTypes.bool,
+        animationType: PropTypes.string,
+        checkedImage: PropTypes.element,
+        unCheckedImage: PropTypes.element,
+        checkBoxColor: PropTypes.string
+      }
     
-    // static defaultProps = {
-    //   }
+    static defaultProps = {
+        styles: awesomeAlertStyles,
+        neverAskText: "Do not ask Anymore",
+        notAskDayText: "Do not ask for a day",
+        transparent: false,
+        animationType: 'none'
+      }
 
     constructor(props){
         super(props)
@@ -99,7 +112,6 @@ export default class AwesomeAlert extends Component {
     }        
 
     alert(title, messagesView, buttons) {
-
         const typeError = this.typeChecker(title, messagesView, buttons)
         if (typeError) {
             console.warn("TypeErr, check the alert param"); return
@@ -111,11 +123,9 @@ export default class AwesomeAlert extends Component {
         this.checkbox = false
 
         this.openModal()
-
     }
 
     checkAlert(title, messagesView, buttons, isNeverAsk) {
-
         const typeError = this.typeChecker(title, messagesView, buttons)
         if (typeError) {
             console.warn("TypeErr, check the alert param"); return
@@ -141,7 +151,7 @@ export default class AwesomeAlert extends Component {
                      }
                  }
              }
-     
+
              if (newID) {
                 alertData = {id: this.modalID, show: true, savedTime: Date.now()}
                 new AlertStorageManager().saveAlert(alertData).then(()=>
@@ -172,12 +182,10 @@ export default class AwesomeAlert extends Component {
     setModalVisible(visible, buttonIdx = null) {
         if(!visible && !this.state.askAlways && (buttonIdx === this.checkSaveBtnIdx)) {
             const alertStorageManager = new AlertStorageManager()
-
             alertStorageManager.showFalse(this.modalID).then(()=>
             alertStorageManager.getObjDatasArr().then(objDatas => this.setState({alertsArr: objDatas}))) 
                                                 .catch((err) => console.warn("CheckAlert :: getObjDatsaArr3 err", err.message))
         }
-
         this.setState({modalVisible: visible, askAlways: true})
     }
 
@@ -254,7 +262,6 @@ export default class AwesomeAlert extends Component {
                 rightTextStyle={styles.checkBoxText}
                 rightText={ this.state.neverAskText || this.state.notAskDayText }
                 leftTextStyle={styles.checkBoxText}
-                leftText={this.props.leftText}
                 checkedImage={this.props.checkedImage}
                 unCheckedImage={this.props.unCheckedImage}
                 checkBoxColor={this.props.checkBoxColor}

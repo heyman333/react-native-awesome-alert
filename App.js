@@ -69,11 +69,6 @@ export default class App extends Component {
           styles = {{checkBoxText: {fontSize: 12, color: 'blue', fontWeight: '600'}, buttonContainer:{flexDirection: 'row', justifyContent: 'space-around'}}}
           transparent = {true}
           animationType = {'fade'}
-          neverAskText= {"다시 묻지 않기"}
-          notAskDayText= {"하루동안 보지 않기"}
-          checkedImage={checkedImg}
-          unCheckedImage={unCheckedImg}
-          checkBoxColor= 'red'
         />
         <TouchableOpacity style = {styles.touchButton} onPress={this.onPressSimpleAlert.bind(this)}> 
           <Text style = {styles.toucaButtonTxt}>simple Alert</Text>

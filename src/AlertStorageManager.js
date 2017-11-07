@@ -3,7 +3,6 @@ const KEY_ALERTS = "KEY_ALERTS"
 
 export default class AlertStorageManager {
     constructor(){
-        
     }
 
     getItem(key) {
@@ -48,35 +47,29 @@ export default class AlertStorageManager {
             return null
         }
     }
-    
-    async showFalse(alertID){
+
+    async changeDataInfo(alertID, changedData) {
         const localDataStr = await this.getItem(KEY_ALERTS)
         const objDatasArr = localDataStr.split(' ').map(obj => JSON.parse(obj))
 
         for (let obj of objDatasArr) {
             if (obj.id == alertID) {
-                const newObj = Object.assign({}, obj,{show: false, savedTime: Date.now()})
+                const newObj = Object.assign({},obj, changedData)
                 const newData = localDataStr.replace(JSON.stringify(obj), JSON.stringify(newObj))
-                console.log("new Data: ", newData)
                 await this.setItem(KEY_ALERTS, newData)
                 break
             }
         }
     }
+    
+    async showFalse(alertID){
+        const newObj = {show: false, savedTime: Date.now()}
+        await this.changeDataInfo(alertID, newObj)
+    }
 
     async showTrue(alertID){
-        const localDataStr = await this.getItem(KEY_ALERTS)
-        const objDatasArr = localDataStr.split(' ').map(obj => JSON.parse(obj))
-
-        for (let obj of objDatasArr) {
-            if (obj.id == alertID) {
-                const newObj =Object.assign({}, obj,{show: true})
-                const newData = localDataStr.replace(JSON.stringify(obj), JSON.stringify(newObj))
-                console.log("new Data: ", newData)
-                await this.setItem(KEY_ALERTS, newData)
-                break
-            }
-        }
+        const newObj = {show: true}
+        await this.changeDataInfo(alertID, newObj)
     }
 
 }
