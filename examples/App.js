@@ -16,8 +16,6 @@ import {
 import AwesomeAlert from './src/AwesomeAlert'
 
 
-const SampleView = <Text>Hello!</Text>
-
 export default class App extends Component {
 
   constructor(props){
@@ -26,47 +24,41 @@ export default class App extends Component {
   }
 
   onPressSimpleAlert() {
-    this.awesomAlert.alert("Hello!!",SampleView,
+    this.awesomAlert.alert("Hello!!",SimpleView,
     [
       {text: "OK", onPress: ()=>console.log("OK touch")},
       {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
-
     ]
   )
 
   }
 
   onPresshNeverAskAlert() {
-    this.awesomAlert.neverAskAlert("Hello1!!",SampleView,
+    this.awesomAlert.neverAskAlert("Hello1!!",NeverAskView,
     [
       {text: "OK", onPress: ()=>console.log("OK touch"), id: "helloAlert"},
       {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
-    ]
+    ],
+    "Do not ask again"
   )
     
   }
 
   onPresshNot24HAlert() {
-    this.awesomAlert.notAskDayAlert("Hello2!!",SampleView,
+    this.awesomAlert.randomAskAlert("Hello2!!",RandomAskView,
     [
       {text: "OK", onPress: ()=>console.log("OK touch"), id: "helloAlert12"},
       {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
-    ]
+    ],
+    "Do not ask for 3 minutes",3
   )
-    
   }
 
 
   render() {
-
-    const checkedImg = <Image source = {require("./image/Icon_Check_on.png")} style = {{width: 15, height: 15}}/>
-    const unCheckedImg = <Image source = {require("./image/Icon_Check_dim.png")} style = {{width: 15, height: 15}}/>
-
-
     return (
       <View style = {styles.container}>
         <AwesomeAlert ref={ref => this.awesomAlert = ref}
-          styles = {{checkBoxText: {fontSize: 12, color: 'blue', fontWeight: '600'}, buttonContainer:{flexDirection: 'row', justifyContent: 'space-around'}}}
           transparent = {true}
           animationType = {'fade'}
         />
@@ -77,7 +69,7 @@ export default class App extends Component {
           <Text style = {styles.toucaButtonTxt}>neverAsk Alert</Text>
         </TouchableOpacity>
         <TouchableOpacity style = {styles.touchButton} onPress={this.onPresshNot24HAlert.bind(this)}> 
-          <Text style = {styles.toucaButtonTxt}>not Ask for 24H Alert</Text>
+          <Text style = {styles.toucaButtonTxt}>randomAsk Alert</Text>
         </TouchableOpacity>
       </View>
     )  
@@ -97,7 +89,36 @@ const styles = StyleSheet.create({
   toucaButtonTxt:{
     fontWeight: '500',
     textAlign: 'center',
-    fontSize: 20
-    
+    fontSize: 20 
+  },
+  sampleView: { 
+    backgroundColor: 'skyblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20
+  },
+  sampleViewText: {
+    fontSize: 18,
+    fontWeight: '600',
+    padding: 5,
+    textAlign: 'center'
   }
 });
+
+const SimpleView = (
+  <View style = {styles.sampleView}>
+    <Text style = {styles.sampleViewText}>This is simple alert</Text>
+  </View>
+)
+
+const NeverAskView = (
+  <View style = {styles.sampleView}>
+    <Text style = {styles.sampleViewText}>This is "Do not ask again" checkable alert</Text>
+  </View>
+)
+
+const RandomAskView = (
+  <View style = {styles.sampleView}>
+    <Text style = {styles.sampleViewText}>This is "Do not ask for 00" checkable alert</Text>
+  </View>
+)

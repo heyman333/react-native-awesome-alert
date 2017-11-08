@@ -1,23 +1,37 @@
 {
-	"name": "sample",
+	"name": "react-native-awesome-alert",
 	"version": "0.0.1",
-	"private": true,
+	"main": "src/AwesomeAlert.js",
+	"description": "Modal component with checkbox for react native, it works on iOS and Android.",
 	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/heyman333/react-native-awesome-alert"
+	  },
+	  "keywords": [
+		"react-native",
+		"react-native-component",
+		"react-native-checkbox",
+		"react-native-Alert",
+		"react-native-Modal",
+		"Modal",
+		"check-box",
+		"check",
+		"box",
+		"react-component",
+		"ios",
+		"android"
+	  ],
+	"author": "youngsoohan",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/heyman333/react-native-awesome-alert/issues"
 	},
 	"dependencies": {
-		"react": "16.0.0-beta.5",
-		"react-native": "0.49.5",
-		"react-native-check-box": "^2.0.2"
+		"react-native-check-box": "^2.0.2",
+		"prop-types": "^15.6.0"
 	},
-	"devDependencies": {
-		"babel-jest": "21.2.0",
-		"babel-preset-react-native": "4.0.0",
-		"jest": "21.2.1",
-		"react-test-renderer": "16.0.0-beta.5"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+	"homepage": "https://github.com/heyman333/react-native-awesome-alert/blob/master/README.md"
 }
