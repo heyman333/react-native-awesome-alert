@@ -29,7 +29,6 @@ so, this props have many similarities with [react-native-check-box](https://gith
 |`animationType` |`string`   |`none`                  |equal to React Native `Modal` prop                                  
 |`checkedImage`  |`element`  |`Default image`         |Custom checked Image
 |`unCheckedImage`|`element`  |`Default image`         |Custom unchecked Image 
-|`unCheckedImage`|`element`  |`Default image`         |Custom unchecked Image
 |`checkBoxColor `|`string`   |                        |Tint color of the checkbox image 
 
  
@@ -146,7 +145,7 @@ onPressrandomAskAlert() {
 }
 
 ```
-#### The usage of the method is quite similar to React Native's Alert But, Be careful to pass the buttons' id. the `id` is used like Primary Key in local DB. if not, It warns you that you didn't pass a `id`
+#### The usage of the method is quite similar to React Native's Alert. But, be careful to pass the buttons' `id`. the `id` is used like primary Key in local DB. if not, it warns you that you didn't pass a `id`
 
 
 ### What you need to know
@@ -159,7 +158,7 @@ In fact, I've just started React Native, and I'm not used to using `JS` and `npm
 including .md file😁
 
 ### AUTHOR
- - [heyman333](https://github.com/heyman333), Movile develpor, South Korea
+ - [heyman333](https://github.com/heyman333), Mobile develpor, Seoul, South Korea
  - gglife333@gmail.com
 
 
