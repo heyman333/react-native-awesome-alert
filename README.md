@@ -35,30 +35,31 @@ so, this props have many similarities with [react-native-check-box](https://gith
 #### Methods
  - `alert(title, messageView, buttons)`
 
-| Arguments    | default  |optional
-|--------------|----------|---------
-|`title `      |`none`    |`false`
-|`messageView `|`none`    |`false`
-|`buttons`     |`none`    |`false`
+| Arguments    |type      | default  |optional
+|--------------|----------|----------|--------
+|`title `      |`string`  |`none`    |`false`
+|`messageView `|`element` |`none`    |`false`
+|`buttons`     |`array`   |`none`    |`false`
 
  - `neverAskAlert(title, messagesView, buttons, checkText = " ")`
+ 
+| Arguments    |type      | default  |optional
+|--------------|----------|----------|--------
+|`title `      |`string`  |`none`    |`false`
+|`messageView `|`element` |`none`    |`false`
+|`buttons`     |`array`   |`none`    |`false`
+|`checkText`   |`string`  |`" "`     |`true`
 
-| Arguments    | default  |optional
-|--------------|----------|---------
-|`title `      |`none`    |`false`
-|`messageView `|`none`    |`false`
-|`buttons`     |`none`    |`false`
-|`checkText `  |`" "`     |`true`
 
  - `randomAskAlert(title, messagesView, buttons, checkText = " ", invisibleTime)`
-
-| Arguments     | default  |optional
-|-------------- |----------|---------
-|`title `       |`none`    |`false`
-|`messageView ` |`none`    |`false`
-|`buttons`      |`none`    |`false`
-|`checkText `   |`" "`     |`true`
-|`invisibleTime`|`none`    |`false`
+ 
+ | Arguments    |type      | default  |optional
+|--------------|----------|----------|--------
+|`title `      |`string`  |`none`    |`false`
+|`messageView `|`element` |`none`    |`false`
+|`buttons`     |`array`   |`none`    |`false`
+|`checkText`   |`string`  |`" "`     |`true`
+|`invisibleTime`|`number` |`none`    |`false`
 
 
 ### HOW TO USE
@@ -160,6 +161,6 @@ including .md file😁
 ### AUTHOR
  - [heyman333](https://github.com/heyman333), Mobile developer, Seoul, South Korea
  - gglife333@gmail.com
- - genzidev7.tistory.com
+ - [blog](http://genzidev7.tistory.com)
 
 
