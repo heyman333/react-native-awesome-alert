@@ -148,17 +148,18 @@ onPressrandomAskAlert() {
 #### The usage of the method is quite similar to React Native's Alert. But, be careful to pass the buttons' `id`. the `id` is used like primary Key in local DB. if not, it warns you that you didn't pass a `id`
 
 
-### What you need to know
+### WHAT YOU NEED TO KNOW
  - If the alert is set to not be visible again, the action of the `button with the ID` is executed. 
  - The checkbox is actually activated only when the `button with the ID` is pressed.
 
-### Contributing
+### CONTRIBUTING
 In fact, I've just started React Native, and I'm not used to using `JS` and `npm`. The PR of talented developers is always welcome and appreciated
 
 including .md file😁
 
 ### AUTHOR
- - [heyman333](https://github.com/heyman333), Mobile develpor, Seoul, South Korea
+ - [heyman333](https://github.com/heyman333), Mobile developer, Seoul, South Korea
  - gglife333@gmail.com
+ - genzidev7.tistory.com
 
 
