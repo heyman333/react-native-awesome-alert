@@ -10,6 +10,8 @@
 Run `npm install react-native-awesome-alert --save`
 
 ### DEMO
+- It works on both iOS and android well
+- The style in the gif is just an example. You can reconfigure styles fully<br><br>
 ![Image](https://thumbs.gfycat.com/DefiantUnimportantEagle-size_restricted.gif)
 
 
@@ -24,7 +26,7 @@ so, this props have many similarities with [react-native-check-box](https://gith
 
 |Prop            | Type      | Default                |Description                                                              
 |----------------|-----------|------------------------|--------------------------------------------------------------
-|`styles`        |`object`   |`AwesomeAlert.style.js` |Style Object. Pleae refer to `style.js code` and `example`
+|`styles`        |`object`   |`AwesomeAlert.style.js` |please refer to `STYLING` section 😁
 |`trnasparent`   |`bool`     |`false`                 |equal to React Native `Modal` prop
 |`animationType` |`string`   |`none`                  |equal to React Native `Modal` prop                                  
 |`checkedImage`  |`element`  |`Default image`         |Custom checked Image
@@ -146,6 +148,66 @@ onPressrandomAskAlert() {
 
 ```
 #### The usage of the method is quite similar to React Native's Alert. But, be careful to pass the buttons' `id`. the `id` is used like primary Key in local DB. if not, it warns you that you didn't pass a `id`
+
+### STYLING
+ 
+```js
+export default {
+    modalContainer : { 
+        flex: 1,
+        backgroundColor: 'rgba(49,49,49, 0.7)',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modalView: { 
+        backgroundColor: '#rgb(235,233,227)',
+        borderRadius: 15,
+        width: 275,
+        borderColor: 'black',
+        borderWidth: StyleSheet.hairlineWidth
+    },
+    checkBox: {
+        marginBottom: 10
+    },
+    checkBoxText: {
+        marginLeft: 4,
+        alignSelf: 'center',
+        fontSize: 15,
+        justifyContent: 'center'
+    },
+    titleText: {
+        fontSize: 17,
+        fontWeight: '600',
+        padding: 15, 
+        alignSelf: 'center'
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        borderColor: 'gray',
+        borderTopWidth: StyleSheet.hairlineWidth
+    },
+    buttonText: {
+        fontSize: 17
+    },
+    button: {
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        padding: 15,
+        borderColor: 'gray'
+    }
+}
+```
+
+#### The above keys are uesd for styling the entire `view`. you just pass the object value like this 
+
+```js
+<AwesomeAlert 
+   styles = {{modalContainer: {backgroundColor: 'rgba(49,49,49,0.8)'}, checkBox: {padding: 10}, 
+   			modalView: {marginBottom: 10, borderRadius:0}}}
+/>
+```
+
 
 
 ### What you need to know

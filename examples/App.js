@@ -58,7 +58,11 @@ export default class App extends Component {
   render() {
     return (
       <View style = {styles.container}>
-        <AwesomeAlert ref={ref => this.awesomAlert = ref}
+        <AwesomeAlert 
+          styles = { {modalContainer: {backgroundColor: 'rgba(49,49,49,0.8)'}, checkBox: {padding: 10},
+                      modalView: {marginBottom: 10, borderRadius:0}
+                    }}
+          ref={ref => this.awesomAlert = ref}
           transparent = {true}
           animationType = {'fade'}
         />
