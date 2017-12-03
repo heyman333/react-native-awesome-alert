@@ -1,7 +1,7 @@
 ## react-native-awesome-alert
 
 [ ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/heyman333/react-native-awesome-alert/pulls)
-[ ![NPM version](https://img.shields.io/badge/npm-0.1.0-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
+[ ![NPM version](https://img.shields.io/badge/npm-0.1.1-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 [![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat)](https://raw.githubusercontent.com/heyman333/react-native-awesome-alert/master/LICENSE)
 
 ✨ Modal component that offers awesome options and costomizable view in React Native
@@ -69,24 +69,11 @@ so, this props have many similarities with [react-native-check-box](https://gith
 ```js
 import AwesomeAlert from 'react-native-awesome-alert'
 
-const SimpleView = (
-  <View style = {styles.sampleView}>
-    <Text style = {styles.sampleViewText}>This is simple alert</Text>
-  </View>
-)
-
 const NeverAskView = (
   <View style = {styles.sampleView}>
     <Text style = {styles.sampleViewText}>This is "Do not ask again" checkable alert</Text>
   </View>
 )
-
-const RandomAskView = (
-  <View style = {styles.sampleView}>
-    <Text style = {styles.sampleViewText}>This is "Do not ask for 00" checkable alert</Text>
-  </View>
-)
-
 
 export default class App extends Component {
 

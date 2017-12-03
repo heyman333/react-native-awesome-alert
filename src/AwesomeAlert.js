@@ -53,7 +53,7 @@ export default class AwesomeAlert extends Component {
         this.title = " "
         this.messagesView = null
         this.buttons = []
-        this.checkText = " ",
+        this.checkText = " "
         this.invisibleTime = null
         
         new AlertStorageManager().getObjDatasArr().then(objDatas => {
@@ -85,10 +85,6 @@ export default class AwesomeAlert extends Component {
             return false
         }
     }
-
-    componentWillMount() {}
-
-    componentDidMount() {}
 
     typeChecker(title, messagesView, buttons, checkText, invisibleTime) {
         if (typeof title !== "string" || !(React.isValidElement(messagesView)) || !(Array.isArray(buttons)) || 
