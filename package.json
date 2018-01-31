@@ -1,37 +1,38 @@
 {
-	"name": "react-native-awesome-alert",
-	"version": "0.1.1",
-	"main": "src/AwesomeAlert.js",
-	"description": "Modal component with checkbox for react native, it works on iOS and Android.",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/heyman333/react-native-awesome-alert"
-	  },
-	  "keywords": [
-		"react-native",
-		"react-native-component",
-		"react-native-checkbox",
-		"react-native-Alert",
-		"react-native-Modal",
-		"Modal",
-		"check-box",
-		"check",
-		"box",
-		"react-component",
-		"ios",
-		"android"
-	  ],
-	"author": "youngsoohan",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/heyman333/react-native-awesome-alert/issues"
-	},
-	"dependencies": {
-		"react-native-check-box": "^2.0.2",
-		"prop-types": "^15.6.0"
-	},
-	"homepage": "https://github.com/heyman333/react-native-awesome-alert/blob/master/README.md"
+  "name": "react-native-awesome-alert",
+  "version": "0.2.0",
+  "main": "src/AwesomeAlert.js",
+  "description": "Modal component with checkbox for react native, it works on iOS and Android.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heyman333/react-native-awesome-alert"
+  },
+  "keywords": [
+    "react-native",
+    "react-native-component",
+    "react-native-checkbox",
+    "react-native-Alert",
+    "react-native-Modal",
+    "Modal",
+    "check-box",
+    "check",
+    "box",
+    "react-component",
+    "ios",
+    "android",
+    "react"
+  ],
+  "author": "youngsoohan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heyman333/react-native-awesome-alert/issues"
+  },
+  "dependencies": {
+    "react-native-check-box": "^2.0.2",
+    "prop-types": "^15.6.0"
+  },
+  "homepage": "https://github.com/heyman333/react-native-awesome-alert/blob/master/README.md"
 }
