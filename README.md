@@ -62,13 +62,13 @@ so, this props have many similarities with [react-native-check-box](https://gith
 
  - `randomAskAlert(title, messagesView, buttons, checkText = " ", invisibleTime)`
  
- | Arguments    |type      | default  |optional
-|--------------|----------|----------|--------
-|`title `      |`string`  |`none`    |`false`
-|`messageView `|`element` |`none`    |`false`
-|`buttons`     |`array`   |`none`    |`false`
-|`checkText`   |`string`  |`" "`     |`true`
-|`invisibleTime`|`number` |`none`    |`false`
+| Arguments    |type              | default  |optional
+|--------------|------------------|----------|--------
+|`title `      |`string`          |`none`    |`false`
+|`messageView `|`element`         |`none`    |`false`
+|`buttons`     |`array`           |`none`    |`false`
+|`checkText`   |`string`          |`" "`     |`true`
+|`invisibleTime`|`number(minute)` |`none`    |`false`
 
 
 ### HOW TO USE
@@ -205,9 +205,12 @@ export default {
 #### The above keys are uesd for styling the entire `view`. you just pass the object value like this 
 
 ```js
-<AwesomeAlert 
-   styles = {{modalContainer: {backgroundColor: 'rgba(49,49,49,0.8)'}, checkBox: {padding: 10}, 
-   			modalView: {marginBottom: 10, borderRadius:0}}}
+<AwesomeAlert
+    styles={{
+      modalContainer: { backgroundColor: "rgba(49,49,49,0.8)" },
+      checkBox: { padding: 10 },
+      modalView: { marginBottom: 10, borderRadius: 0 }
+    }}
 />
 ```
 
