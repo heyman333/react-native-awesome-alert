@@ -1,13 +1,20 @@
 ## react-native-awesome-alert
 
 [ ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/heyman333/react-native-awesome-alert/pulls)
-[ ![NPM version](https://img.shields.io/badge/npm-0.1.1-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
+[ ![NPM version](https://img.shields.io/badge/npm-0.2.0-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 [![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat)](https://raw.githubusercontent.com/heyman333/react-native-awesome-alert/master/LICENSE)
+[![License MIT](https://img.shields.io/badge/downloads-81%20total-brightgreen.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 
-✨ Modal component that offers awesome options and costomizable view in React Native
+
+Customizable modal components with ✔️check options in React Native
 
 ### INSTALLATION
+
+#### npm 
 Run `npm install react-native-awesome-alert --save`
+
+#### yarn
+Run `yarn add react-native-awesome-alert`
 
 ### DEMO
 - It works on both iOS and android well
@@ -31,7 +38,7 @@ so, this props have many similarities with [react-native-check-box](https://gith
 |`animationType` |`string`   |`none`                  |equal to React Native `Modal` prop                                  
 |`checkedImage`  |`element`  |`Default image`         |Custom checked Image
 |`unCheckedImage`|`element`  |`Default image`         |Custom unchecked Image 
-|`checkBoxColor `|`string`   |                        |Tint color of the checkbox image 
+|`checkBoxColor `|`string`   |`black`                 |Tint color of the checkbox image 
 
  
 #### Methods
@@ -67,70 +74,78 @@ so, this props have many similarities with [react-native-check-box](https://gith
 ### HOW TO USE
 
 ```js
-import AwesomeAlert from 'react-native-awesome-alert'
+
+import AwesomeAlert from "react-native-awesome-alert"
 
 const NeverAskView = (
-  <View style = {styles.sampleView}>
-    <Text style = {styles.sampleViewText}>This is "Do not ask again" checkable alert</Text>
+  <View style={styles.sampleView}>
+    <Text style={styles.sampleViewText}>This is "Do not ask again" checkable alert</Text>
   </View>
 )
 
+...
+
 export default class App extends Component {
 
-  constructor(props){
-    super(props)
-
-  }
-
   onPressSimpleAlert() {
-    this.awesomAlert.alert("Hello!!",SimpleView,
-    [
-      {text: "OK", onPress: ()=>console.log("OK touch")},
-      {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
-    ]
-  )
-
+    this.awesomAlert.alert("Hello!!", SimpleView, [
+      { text: "OK", onPress: () => console.log("OK touch") },
+      { text: "Cancel", onPress: () => console.log("Cancel touch") }
+    ])
   }
 
   onPresshNeverAskAlert() {
-    this.awesomAlert.neverAskAlert("Hello1!!",NeverAskView,
-    [
-      {text: "OK", onPress: ()=>console.log("OK touch"), id: "helloAlert"},
-      {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
-    ],
-    "Do not ask again"
-  )
-    
+    this.awesomAlert.neverAskAlert(
+      "Hello1!!",
+      NeverAskView,
+      [
+        { text: "OK", onPress: () => console.log("OK touch"), id: "helloAlert" },
+        { text: "Cancel", onPress: () => console.log("Cancel touch") }
+      ],
+      "Do not ask again"
+    )
   }
 
-onPressrandomAskAlert() {
-    this.awesomAlert.randomAskAlert("Hello2!!",RandomAskView,
-    [
-      {text: "OK", onPress: ()=>console.log("OK touch"), id: "helloAlert12", style:{color: 'red'}},
-      {text: "Cancel", onPress: ()=>console.log("Cancel touch")}
-    ],
-    "Do not ask for 10 minutes", 10
-  )
+  onPresshNot24HAlert() {
+    this.awesomAlert.randomAskAlert(
+      "Hello2!!",
+      RandomAskView,
+      [
+        { text: "OK", onPress: () => console.log("OK touch"), id: "helloAlert12" },
+        { text: "Cancel", onPress: () => console.log("Cancel touch") }
+      ],
+      "Do not ask for 3 minutes",
+      3
+    )
   }
 
   render() {
     return (
-      <View style = {styles.container}>
-        <AwesomeAlert ref={ref => this.awesomAlert = ref}
-          transparent = {true}
-          animationType = {'fade'}
+      <View style={styles.container}>
+        <AwesomeAlert
+          styles={{
+            modalContainer: { backgroundColor: "rgba(49,49,49,0.8)" },
+            checkBox: { padding: 10 },
+            modalView: { marginBottom: 10, borderRadius: 0 }
+          }}
+          ref={ref => (this.awesomAlert = ref)}
+          transparent={true}
+          animationType={"fade"}
         />
-        <TouchableOpacity style = {styles.touchButton} onPress={this.onPressSimpleAlert.bind(this)}> 
-          <Text style = {styles.toucaButtonTxt}>simple Alert</Text>
+        <TouchableOpacity style={styles.touchButton} onPress={this.onPressSimpleAlert.bind(this)}>
+          <Text style={styles.toucaButtonTxt}>simple Alert</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.touchButton} onPress={this.onPresshNeverAskAlert.bind(this)}>  
-          <Text style = {styles.toucaButtonTxt}>neverAsk Alert</Text>
+        <TouchableOpacity
+          style={styles.touchButton}
+          onPress={this.onPresshNeverAskAlert.bind(this)}
+        >
+          <Text style={styles.toucaButtonTxt}>neverAsk Alert</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.touchButton} onPress={this.onPressrandomAskAlert.bind(this)}> 
-          <Text style = {styles.toucaButtonTxt}>randomAsk Alert</Text>
+        <TouchableOpacity style={styles.touchButton} onPress={this.onPresshNot24HAlert.bind(this)}>
+          <Text style={styles.toucaButtonTxt}>randomAsk Alert</Text>
         </TouchableOpacity>
       </View>
-    )  
+    )
   }
 }
 
@@ -203,13 +218,13 @@ export default {
  - The checkbox is actually activated only when the `button with the ID` is pressed.
 
 ### CONTRIBUTING
-In fact, I've just started React Native, and I'm not used to using `JS` and `npm`. The PR of talented developers is always welcome and appreciated
+The PR of talented developers is always welcome and appreciated
 
 including .md file😁
 
 ### AUTHOR
  - [heyman333](https://github.com/heyman333), Mobile developer, Seoul, South Korea
- - gglife333@gmail.com
- - [blog](http://genzidev7.tistory.com)
+ - [gglife333@gmail.com](mailto:gglife333@gmail.com)
+
 
 
