@@ -184,14 +184,12 @@ export default class AwesomeAlert extends Component {
   setModalVisible(visible, buttonIdx = null) {
     if (!visible && !this.state.askAlways && buttonIdx === this.checkSaveBtnIdx) {
       const alertStorageManager = new AlertStorageManager()
-      alertStorageManager
-        .showFalse(this.modalID)
-        .then(() =>
-          alertStorageManager
-            .getObjDatasArr()
-            .then(objDatas => this.setState({ alertsArr: objDatas }))
-        )
-        .catch(err => console.warn(err.message))
+      alertStorageManager.showFalse(this.modalID, () =>
+        alertStorageManager
+          .getObjDatasArr()
+          .then(objDatas => this.setState({ alertsArr: objDatas }))
+          .catch(err => console.warn(err.message))
+      )
     }
     this.setState({ modalVisible: visible, askAlways: true })
   }
@@ -209,14 +207,13 @@ export default class AwesomeAlert extends Component {
       )
       if (overDay && !alertData.show) {
         const alertStorageManager = new AlertStorageManager()
-        alertStorageManager
-          .showTrue(this.modalID)
-          .then(() =>
-            alertStorageManager
-              .getObjDatasArr()
-              .then(objDatas => this.setState({ alertsArr: objDatas }))
-          )
-          .catch(err => console.warn(err.message))
+        alertStorageManager.showTrue(this.modalID, () =>
+          alertStorageManager
+            .getObjDatasArr()
+            .then(objDatas => this.setState({ alertsArr: objDatas }))
+            .catch(err => console.warn(err.message))
+        )
+
         this.setModalVisible(true)
       }
     }

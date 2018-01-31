@@ -55,13 +55,13 @@ export default class AlertStorageManager {
     }
   }
 
-  showFalse(alertID) {
+  showFalse(alertID, callBack) {
     const newObj = { show: false, savedTime: Date.now() }
-    this.changeDataInfo(alertID, newObj)
+    this.changeDataInfo(alertID, newObj).then(() => callBack())
   }
 
-  showTrue(alertID) {
+  showTrue(alertID, callBack) {
     const newObj = { show: true }
-    this.changeDataInfo(alertID, newObj)
+    this.changeDataInfo(alertID, newObj).then(() => callBack())
   }
 }
