@@ -3,7 +3,7 @@
 [ ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/heyman333/react-native-awesome-alert/pulls)
 [ ![NPM version](https://img.shields.io/badge/npm-0.2.2-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 [![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat)](https://raw.githubusercontent.com/heyman333/react-native-awesome-alert/master/LICENSE)
-[![License MIT](https://img.shields.io/badge/downloads-81%20total-brightgreen.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
+[![License MIT](https://img.shields.io/badge/downloads-100%2Fmonth-brightgreen.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 
 
 Customizable modal components with ✔️check options in React Native
