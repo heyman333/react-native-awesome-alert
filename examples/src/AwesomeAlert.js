@@ -58,7 +58,6 @@ export default class AwesomeAlert extends Component {
     new AlertStorageManager()
       .getObjDatasArr()
       .then(objDatas => {
-        console.log("outPutData:", objDatas)
         this.setState({ alertsArr: objDatas })
       })
       .catch(err => console.warn(err.message))
@@ -99,7 +98,7 @@ export default class AwesomeAlert extends Component {
   }
 
   parseButton(buttons, isNeverAsk) {
-    // Search button id
+    // Search button's id
     for (let i in buttons) {
       if (buttons[i].hasOwnProperty("id")) {
         this.modalID = isNeverAsk
@@ -224,7 +223,7 @@ export default class AwesomeAlert extends Component {
   render() {
     const buttonTextStyle = []
 
-    // apply button style
+    // apply button's style
     for (let button of this.buttons) {
       const textStyle = StyleSheet.flatten([styles.buttonText, button.style])
       buttonTextStyle.push(textStyle)
