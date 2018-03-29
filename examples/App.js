@@ -6,7 +6,7 @@
 
 import React, { Component } from "react"
 import { Platform, StyleSheet, Text, View, TouchableOpacity, Image } from "react-native"
-import AwesomeAlert from "./src/AwesomeAlert"
+import CheckAlert from "./src/CheckAlert"
 
 export default class App extends Component {
   constructor(props) {
@@ -48,7 +48,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <AwesomeAlert
+        <CheckAlert
           styles={{
             modalContainer: { backgroundColor: "rgba(49,49,49,0.8)" },
             checkBox: { padding: 10 },

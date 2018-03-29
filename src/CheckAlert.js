@@ -16,13 +16,13 @@ import {
 import PropTypes from "prop-types"
 import AlertStorageManager from "./AlertStorageManager"
 import TimeManager from "./TimeManager"
-import awesomeAlertStyles from "./AwesomeAlert.style"
+import checkAlertStyles from "./CheckAlert.style"
 
 const styles = {}
 const NEVER_ALERT_PREFIX = "neverAskAlert:"
 const RANDOM_ALERT_PREFIX = "randomAskAlert:"
 
-export default class AwesomeAlert extends Component {
+export default class CheckAlert extends Component {
   static propTypes = {
     styles: PropTypes.object,
     transparent: PropTypes.bool,
@@ -33,7 +33,7 @@ export default class AwesomeAlert extends Component {
   }
 
   static defaultProps = {
-    styles: awesomeAlertStyles,
+    styles: checkAlertStyles,
     transparent: false,
     animationType: "none"
   }
@@ -63,11 +63,11 @@ export default class AwesomeAlert extends Component {
       .catch(err => console.warn(err.message))
 
     if (this.props.styles) {
-      Object.keys(awesomeAlertStyles).forEach(key => {
-        styles[key] = StyleSheet.flatten([awesomeAlertStyles[key], this.props.styles[key]])
+      Object.keys(checkAlertStyles).forEach(key => {
+        styles[key] = StyleSheet.flatten([checkAlertStyles[key], this.props.styles[key]])
       })
     } else {
-      styles = awesomeAlertStyles
+      styles = checkAlertStyles
     }
   }
 
