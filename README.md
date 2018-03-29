@@ -6,7 +6,7 @@
 [![License MIT](https://img.shields.io/badge/downloads-100%2Fmonth-brightgreen.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 
 
-Customizable modal components with ✔️check options in React Native
+This package offers customizable modal components with ✔️check options in React Native
 
 ### INSTALLATION
 
@@ -17,8 +17,8 @@ Run `npm install react-native-awesome-alert --save`
 Run `yarn add react-native-awesome-alert`
 
 ### DEMO
-- It works on both iOS and android well
-- The style in the gif is just an example. You can reconfigure styles fully<br><br>
+- Works well on both iOS and Android
+- Fully customizable style (example below)<br><br>
 ![Image](https://thumbs.gfycat.com/DefiantUnimportantEagle-size_restricted.gif)
 
 
@@ -26,9 +26,7 @@ Run `yarn add react-native-awesome-alert`
 
 #### Props
 
-Thankfully, `react-native-awesome-alert` is using `react-native-check-box` in modal view
-
-so, this props have many similarities with [react-native-check-box](https://github.com/crazycodeboy/react-native-check-box) (author : [crazycodeboy](https://github.com/crazycodeboy))
+The props for `react-native-awesome-alert` share similarities with [react-native-check-box](https://github.com/crazycodeboy/react-native-check-box) (author : [crazycodeboy](https://github.com/crazycodeboy))
 
 
 |Prop            | Type      | Default                |Description                                                              
@@ -150,7 +148,7 @@ export default class App extends Component {
 }
 
 ```
-#### The usage of the method is quite similar to React Native's Alert. But, be careful to pass the buttons' `id`. the `id` is used like primary Key in local DB. if not, it warns you that you didn't pass a `id`
+#### The method is similar to React Native's Alert, however be careful when passing the button's `id`. The `id` is used like a primary Key in a local DB, and will cause a warning if the `id` is not passed properly.
 
 ### STYLING
  
@@ -202,7 +200,7 @@ export default {
 }
 ```
 
-#### The above keys are uesd for styling the entire `view`. you just pass the object value like this 
+#### The above keys are used for styling the entire `view`. You just pass the object value like this 
 
 ```js
 <AwesomeAlert
@@ -218,7 +216,7 @@ export default {
 
 ### WHAT YOU NEED TO KNOW
  - If the alert is set to not be visible again, the action of the `button with the ID` is executed. 
- - The checkbox is actually activated only when the `button with the ID` is pressed.
+ - The checkbox is activated only when the `button with the ID` is pressed.
 
 ### CONTRIBUTING
 The PR of talented developers is always welcome and appreciated
