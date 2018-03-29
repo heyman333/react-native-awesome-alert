@@ -1,7 +1,7 @@
 ## react-native-awesome-alert
 
 [ ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/heyman333/react-native-awesome-alert/pulls)
-[ ![NPM version](https://img.shields.io/badge/npm-0.2.3-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
+[ ![NPM version](https://img.shields.io/badge/npm-v0.3.0-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 [![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat)](https://raw.githubusercontent.com/heyman333/react-native-awesome-alert/master/LICENSE)
 [![License MIT](https://img.shields.io/badge/downloads-100%2Fmonth-brightgreen.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 
@@ -75,7 +75,7 @@ so, this props have many similarities with [react-native-check-box](https://gith
 
 ```js
 
-import AwesomeAlert from "react-native-awesome-alert"
+import CheckAlert from "react-native-awesome-alert"
 
 const NeverAskView = (
   <View style={styles.sampleView}>
@@ -88,14 +88,14 @@ const NeverAskView = (
 export default class App extends Component {
 
   onPressSimpleAlert() {
-    this.awesomAlert.alert("Hello!!", SimpleView, [
+    this.checkAlert.alert("Hello!!", SimpleView, [
       { text: "OK", onPress: () => console.log("OK touch") },
       { text: "Cancel", onPress: () => console.log("Cancel touch") }
     ])
   }
 
   onPresshNeverAskAlert() {
-    this.awesomAlert.neverAskAlert(
+    this.checkAlert.neverAskAlert(
       "Hello1!!",
       NeverAskView,
       [
@@ -107,7 +107,7 @@ export default class App extends Component {
   }
 
   onPresshNot24HAlert() {
-    this.awesomAlert.randomAskAlert(
+    this.checkAlert.randomAskAlert(
       "Hello2!!",
       RandomAskView,
       [
@@ -122,13 +122,13 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <AwesomeAlert
+        <CheckAlert
           styles={{
             modalContainer: { backgroundColor: "rgba(49,49,49,0.8)" },
             checkBox: { padding: 10 },
             modalView: { marginBottom: 10, borderRadius: 0 }
           }}
-          ref={ref => (this.awesomAlert = ref)}
+          ref={ref => (this.checkAlert = ref)}
           transparent={true}
           animationType={"fade"}
         />
@@ -227,7 +227,7 @@ including .md file😁
 
 ### AUTHOR
  - [heyman333](https://github.com/heyman333), Mobile developer, Seoul, South Korea
- - [gglife333@gmail.com](mailto:gglife333@gmail.com)
+ - [amazingmobdev@gmail.com](mailto:amazingmobdev@gmail.com)
 
 
 
