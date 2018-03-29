@@ -32,8 +32,9 @@
     "url": "https://github.com/heyman333/react-native-awesome-alert/issues"
   },
   "dependencies": {
-    "react-native-check-box": "^2.0.2",
-    "prop-types": "^15.6.0"
+    "npm": "^5.8.0",
+    "prop-types": "^15.6.0",
+    "react-native-check-box": "^2.0.2"
   },
   "homepage": "https://github.com/heyman333/react-native-awesome-alert/blob/master/README.md"
 }
