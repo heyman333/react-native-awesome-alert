@@ -1,18 +1,6 @@
 import React, { Component } from "react"
 import CheckBox from "react-native-check-box"
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Alert,
-  Modal,
-  AsyncStorage,
-  Platform,
-  Animated,
-  Dimensions
-} from "react-native"
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Modal } from "react-native"
 import PropTypes from "prop-types"
 import AlertStorageManager from "./AlertStorageManager"
 import TimeManager from "./TimeManager"
@@ -25,17 +13,12 @@ const RANDOM_ALERT_PREFIX = "randomAskAlert:"
 export default class CheckAlert extends Component {
   static propTypes = {
     styles: PropTypes.object,
-    transparent: PropTypes.bool,
-    animationType: PropTypes.string,
-    checkedImage: PropTypes.element,
-    unCheckedImage: PropTypes.element,
-    checkBoxColor: PropTypes.string
+    leftCheck: PropTypes.bool
   }
 
   static defaultProps = {
     styles: checkAlertStyles,
-    transparent: false,
-    animationType: "none"
+    leftCheck: true
   }
 
   constructor(props) {
@@ -222,7 +205,6 @@ export default class CheckAlert extends Component {
 
   render() {
     const buttonTextStyle = []
-
     // apply button's style
     for (let button of this.buttons) {
       const textStyle = StyleSheet.flatten([styles.buttonText, button.style])
@@ -231,13 +213,12 @@ export default class CheckAlert extends Component {
     return (
       <View>
         <Modal
-          transparent={this.props.transparent}
-          animationType={this.props.animationType}
+          {...this.props.modalProps}
           visible={this.state.modalVisible}
           onRequestClose={() => this.setModalVisible(false)}
         >
           <View style={styles.modalContainer}>
-            <Animated.View style={styles.modalView}>
+            <View style={styles.modalView}>
               <Text style={styles.titleText}>
                 {this.title}
               </Text>
@@ -261,7 +242,7 @@ export default class CheckAlert extends Component {
                   )
                 })}
               </View>
-            </Animated.View>
+            </View>
           </View>
         </Modal>
       </View>
@@ -274,8 +255,10 @@ export default class CheckAlert extends Component {
         style={styles.checkBox}
         onClick={() => this.setState({ askAlways: !this.state.askAlways })}
         isChecked={!this.state.askAlways}
-        rightTextStyle={styles.checkBoxText}
-        rightText={this.checkText}
+        rightTextStyle={this.props.leftCheck ? styles.checkBoxText : null}
+        rightText={this.props.leftCheck ? this.checkText : null}
+        leftText={this.props.leftCheck ? null : this.checkText}
+        letTextStyle={this.props.leftCheck ? null : styles.checkBoxText}
         checkedImage={this.props.checkedImage}
         unCheckedImage={this.props.unCheckedImage}
         checkBoxColor={this.props.checkBoxColor}

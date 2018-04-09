@@ -55,8 +55,13 @@ export default class App extends Component {
             modalView: { marginBottom: 10, borderRadius: 0 }
           }}
           ref={ref => (this.awesomAlert = ref)}
-          transparent={true}
-          animationType={"fade"}
+          // available Modal's props options: https://facebook.github.io/react-native/docs/modal.html
+          modalProps={{
+            transparent: true,
+            animationType: "slide",
+            onShow: () => alert("onShow!")
+          }}
+          checkBoxColor="red"
         />
         <TouchableOpacity style={styles.touchButton} onPress={this.onPressSimpleAlert.bind(this)}>
           <Text style={styles.toucaButtonTxt}>simple Alert</Text>
