@@ -1,7 +1,7 @@
 ## react-native-awesome-alert
 
 [ ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/heyman333/react-native-awesome-alert/pulls)
-[ ![NPM version](https://img.shields.io/badge/npm-v0.3.0-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
+[ ![NPM version](https://img.shields.io/badge/npm-v0.4.0-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 [![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat)](https://raw.githubusercontent.com/heyman333/react-native-awesome-alert/master/LICENSE)
 [![License MIT](https://img.shields.io/badge/downloads-100%2Fmonth-brightgreen.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 
@@ -30,10 +30,10 @@ The props for `react-native-awesome-alert` share similarities with [react-native
 
 
 |Prop            | Type      | Default                |Description                                                              
-|----------------|-----------|------------------------|--------------------------------------------------------------
-|`styles`        |`object`   |`AwesomeAlert.style.js` |please refer to `STYLING` section 😁
-|`trnasparent`   |`bool`     |`false`                 |equal to React Native `Modal` prop
-|`animationType` |`string`   |`none`                  |equal to React Native `Modal` prop                                  
+|----------------|-----------|------------------------|-------------------------------------------------------
+|`styles`        |`object`   |`AwesomeAlert.style.js` |please refer to `STYLING` section 😁                   
+|`modalProps`    |`object`   |                        |original react-native Modal Props. please refer to [offcial Document](https://facebook.github.io/react-native/docs/modal.html)
+|`leftCheck`     |`bool`     |`true`                  |set where the checkbox will be located. default is left
 |`checkedImage`  |`element`  |`Default image`         |Custom checked Image
 |`unCheckedImage`|`element`  |`Default image`         |Custom unchecked Image 
 |`checkBoxColor `|`string`   |`black`                 |Tint color of the checkbox image 
@@ -94,7 +94,7 @@ export default class App extends Component {
 
   onPresshNeverAskAlert() {
     this.checkAlert.neverAskAlert(
-      "Hello1!!",
+      "Hello CheckAlert",
       NeverAskView,
       [
         { text: "OK", onPress: () => console.log("OK touch"), id: "helloAlert" },
@@ -106,10 +106,10 @@ export default class App extends Component {
 
   onPresshNot24HAlert() {
     this.checkAlert.randomAskAlert(
-      "Hello2!!",
+      "Hello CheckAlert",
       RandomAskView,
       [
-        { text: "OK", onPress: () => console.log("OK touch"), id: "helloAlert12" },
+        { text: "OK", onPress: () => console.log("OK touch"), id: "helloAlert2" },
         { text: "Cancel", onPress: () => console.log("Cancel touch") }
       ],
       "Do not ask for 3 minutes",
@@ -126,9 +126,14 @@ export default class App extends Component {
             checkBox: { padding: 10 },
             modalView: { marginBottom: 10, borderRadius: 0 }
           }}
-          ref={ref => (this.checkAlert = ref)}
-          transparent={true}
-          animationType={"fade"}
+          ref={ref => (this.awesomAlert = ref)}
+          // available Modal's props options: https://facebook.github.io/react-native/docs/modal.html
+          modalProps={{
+            transparent: true,
+            animationType: "slide",
+            onShow: () => alert("onShow!")
+          }}
+          checkBoxColor="red"
         />
         <TouchableOpacity style={styles.touchButton} onPress={this.onPressSimpleAlert.bind(this)}>
           <Text style={styles.toucaButtonTxt}>simple Alert</Text>
