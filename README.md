@@ -231,6 +231,11 @@ including .md file😁
 ### AUTHOR
  - [heyman333](https://github.com/heyman333), Mobile developer, Seoul, South Korea
  - [amazingmobdev@gmail.com](mailto:amazingmobdev@gmail.com)
-
+ 
+ ### ROADMAP
+ - [ ] Chnage javascript to typescript for better code quality
+ - [ ] Make sample app fancier
+ - [ ] Correct bad code fully
+ 
 
 
