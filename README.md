@@ -233,7 +233,7 @@ including .md file😁
  - [amazingmobdev@gmail.com](mailto:amazingmobdev@gmail.com)
  
  ### ROADMAP
- - [ ] Chnage javascript to typescript for better code quality
+ - [ ] Change javascript to typescript for better code quality
  - [ ] Make sample app fancier
  - [ ] Correct bad code fully
  
