@@ -1,7 +1,6 @@
 ## react-native-awesome-alert
 
 [ ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/heyman333/react-native-awesome-alert/pulls)
-[ ![NPM version](https://img.shields.io/badge/npm-v0.4.0-blue.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 [![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat)](https://raw.githubusercontent.com/heyman333/react-native-awesome-alert/master/LICENSE)
 [![License MIT](https://img.shields.io/badge/downloads-100%2Fmonth-brightgreen.svg)](https://www.npmjs.com/package/react-native-awesome-alert)
 
@@ -133,16 +132,16 @@ export default class App extends Component {
           }}
           checkBoxColor="red"
         />
-        <TouchableOpacity style={styles.touchButton} onPress={this.onPressSimpleAlert.bind(this)}>
+        <TouchableOpacity style={styles.touchButton} onPress={this.onPressSimpleAlert}>
           <Text style={styles.toucaButtonTxt}>simple Alert</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.touchButton}
-          onPress={this.onPresshNeverAskAlert.bind(this)}
+          onPress={this.onPresshNeverAskAlert}
         >
           <Text style={styles.toucaButtonTxt}>neverAsk Alert</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.touchButton} onPress={this.onPresshNot24HAlert.bind(this)}>
+        <TouchableOpacity style={styles.touchButton} onPress={this.onPresshNot24HAlert}>
           <Text style={styles.toucaButtonTxt}>randomAsk Alert</Text>
         </TouchableOpacity>
       </View>
