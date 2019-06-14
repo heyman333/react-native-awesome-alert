@@ -1,3 +1,15 @@
+
+## NOTICE
+
+This package was created just when I started react-native. And I thought I had to fix a lot of this package, and I decided to put a new named module in `npm` and create a new repository.
+
+In the future, remaking will be done in the below repository, and will be posted in below repository to see if it has been published to npm.
+
+Thank you 🤟
+
+🔜 [react-native-check-alert](https://github.com/heyman333/react-native-check-alert) (Proceeding...)
+
+
 ## react-native-awesome-alert
 
 [ ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/heyman333/react-native-awesome-alert/pulls)
