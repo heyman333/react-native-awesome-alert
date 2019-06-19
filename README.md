@@ -7,7 +7,7 @@ In the future, remaking will be done in the below repository, and will be posted
 
 Thank you 🤟
 
-🔜 [react-native-check-alert](https://github.com/heyman333/react-native-check-alert) (Proceeding...)
+🔜 [react-native-hide-modal](https://github.com/heyman333/react-native-hide-modal) (In progress...)
 
 
 ## react-native-awesome-alert
