@@ -1,6 +1,6 @@
 {
   "name": "react-native-awesome-alert",
-  "version": "0.4.3",
+  "version": "0.4.5",
   "main": "src/CheckAlert.js",
   "description": "Modal component with checkoptions for react native, it works on iOS and Android.",
   "scripts": {
