@@ -3,11 +3,11 @@
 
 This package was created just when I started react-native. And I thought I had to fix a lot of this package, and I decided to put a new named module in `npm` and create a new repository.
 
-In the future, remaking will be done in the below repository, and will be posted in below repository to see if it has been published to npm.
+Please check the repo below
 
 Thank you 🤟
 
-🔜 [react-native-hide-modal](https://github.com/heyman333/react-native-hide-modal) (In progress...)
+🔜 [react-native-hide-modal](https://github.com/heyman333/react-native-hide-modal)
 
 
 ## react-native-awesome-alert
